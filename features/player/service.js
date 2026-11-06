@@ -154,8 +154,9 @@ export class PlayerService {
       this.respawn('Fell into void');
     }
 
-    // 10. Update Camera tracking & Trail
+    // 10. Update Camera tracking, Global Position Broadcast & Trail
     this.bus.emit('camera:target', { x: this.x + this.w / 2, y: this.y + this.h / 2 });
+    this.bus.emit('player:position', { x: this.x, y: this.y, w: this.w, h: this.h });
 
     this.trailTimer += dt;
     if (this.trailTimer > 0.04) {

@@ -29,6 +29,7 @@ export class CollectiblesService {
     this.collectedCount = 0;
     this.totalCount = this.shards.length;
     this.floatTimer = 0;
+    this.playerRect = null;
   }
 
   init(context) {
@@ -36,6 +37,10 @@ export class CollectiblesService {
 
     this.bus.on('dimension:changed', ({ current }) => {
       this.currentRealm = current;
+    });
+
+    this.bus.on('player:position', (rect) => {
+      this.playerRect = rect;
     });
 
     this.bus.on('player:died', () => {
@@ -46,11 +51,9 @@ export class CollectiblesService {
   update(dt) {
     this.floatTimer += dt * 3.5;
 
-    // Check Player collisions
-    const player = this.bus.kernel.getFeature('player');
-    if (!player) return;
-
-    const pRect = { x: player.x, y: player.y, w: player.w, h: player.h };
+    // Check Player collisions via decoupled event state
+    if (!this.playerRect) return;
+    const pRect = this.playerRect;
 
     // 1. Shards Pickup
     for (const shard of this.shards) {
