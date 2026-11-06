@@ -159,3 +159,4 @@ export class CollectiblesService {
 }
 
 export default new CollectiblesService();
+

@@ -150,3 +150,4 @@ export class GameEngine {
     this.camera.y += (this.camera.targetY - (this.height / 1.8) - this.camera.y) * lerpSpeed * dt;
   }
 }
+

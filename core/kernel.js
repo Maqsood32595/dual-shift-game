@@ -105,3 +105,4 @@ export class GameKernel {
     return Array.from(this.manifests.values());
   }
 }
+
