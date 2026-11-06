@@ -4,8 +4,8 @@
   "description": "A dual-dimension precision platformer built with Fractal Kernel architecture for GitHub Game Off 2026 (Theme: SHIFT)",
   "type": "module",
   "scripts": {
-    "start": "npx serve . -l 3000",
-    "dev": "npx serve . -l 3000"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "keywords": [
     "game-off-2026",
@@ -18,4 +18,3 @@
   "author": "Mohammed Maqsood",
   "license": "CC-BY-4.0"
 }
-
