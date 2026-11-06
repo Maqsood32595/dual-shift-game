@@ -1,0 +1,10 @@
+{
+  "id": "collectibles",
+  "name": "Dual-Realm Shards & Exit Portal",
+  "description": "Collectibles that phase between dimensions and power the stage exit gateway",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 35,
+  "renderLayer": 40,
+  "service": "./service.js"
+}

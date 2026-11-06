@@ -1,0 +1,10 @@
+{
+  "id": "particle-fx",
+  "name": "Particle & Visual FX System",
+  "description": "Particle bursts, realm shift ripples, and atmospheric dust motes",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 40,
+  "renderLayer": 60,
+  "service": "./service.js"
+}

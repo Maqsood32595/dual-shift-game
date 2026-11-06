@@ -1,0 +1,10 @@
+{
+  "id": "player",
+  "name": "Player Physics & Controller",
+  "description": "Kinematic 2D platformer movement, wall slide, coyote time, and realm interaction",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 30,
+  "renderLayer": 50,
+  "service": "./service.js"
+}

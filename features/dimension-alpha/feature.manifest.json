@@ -1,0 +1,10 @@
+{
+  "id": "dimension-alpha",
+  "name": "Dimension Alpha (Solar Realm)",
+  "description": "Physical platforms and hazards that exist in the Alpha dimension",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 20,
+  "renderLayer": 20,
+  "service": "./service.js"
+}

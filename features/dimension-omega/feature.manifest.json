@@ -1,0 +1,10 @@
+{
+  "id": "dimension-omega",
+  "name": "Dimension Omega (Void Realm)",
+  "description": "Ethereal cyber-platforms and gravity launch pads that exist in the Omega dimension",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 21,
+  "renderLayer": 21,
+  "service": "./service.js"
+}

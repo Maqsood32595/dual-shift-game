@@ -1,0 +1,9 @@
+{
+  "id": "audio-synth",
+  "name": "Procedural Web Audio Synthesizer",
+  "description": "Zero-dependency procedural SFX and retro synth generated via the Web Audio API",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 45,
+  "service": "./service.js"
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>DUAL-SHIFT // GitHub Game Off 2026</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: #06060c;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Courier New", monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #game-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 16px;
+    }
+
+    #game-canvas {
+      background-color: #0b0c16;
+      border: 2px solid #1e293b;
+      border-radius: 8px;
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.15), 0 0 60px rgba(245, 158, 11, 0.1);
+      cursor: crosshair;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .meta-bar {
+      margin-top: 10px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      background: #1e293b;
+      color: #38bdf8;
+    }
+
+    .badge.github {
+      background: #24292e;
+      color: #ffffff;
+      border: 1px solid #475569;
+    }
+
+    .badge.theme {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid #f59e0b;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-wrapper">
+    <canvas id="game-canvas"></canvas>
+    <div class="meta-bar">
+      <span class="badge github">GitHub Game Off 2026</span>
+      <span class="badge theme">Theme: SHIFT</span>
+      <span>Architecture: <strong>Fractal Kernel</strong></span>
+      <span>Click or press <strong>[SHIFT]</strong> to shift reality</span>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

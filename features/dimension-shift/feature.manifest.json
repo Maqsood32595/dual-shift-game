@@ -1,0 +1,10 @@
+{
+  "id": "dimension-shift",
+  "name": "Dimension Shift Engine",
+  "description": "Toggles reality between Alpha (Solar) and Omega (Void) realms on Shift key press",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 10,
+  "renderLayer": 90,
+  "service": "./service.js"
+}

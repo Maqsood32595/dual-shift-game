@@ -1,0 +1,10 @@
+{
+  "id": "hud",
+  "name": "Cyberpunk Heads-Up Display (HUD)",
+  "description": "Renders realm indicator, shard count, timer, and controls interface in screen space",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 50,
+  "renderLayer": 100,
+  "service": "./service.js"
+}
