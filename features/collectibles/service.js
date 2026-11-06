@@ -46,6 +46,14 @@ export class CollectiblesService {
     this.bus.on('player:died', () => {
       // Keep collected count or challenge player
     });
+
+    this.bus.on('game:restart', () => {
+      for (const shard of this.shards) {
+        shard.collected = false;
+      }
+      this.collectedCount = 0;
+      this.portal.cleared = false;
+    });
   }
 
   update(dt) {

@@ -29,11 +29,21 @@ export class HudService {
       this.stageCleared = true;
       this.clearTime = this.elapsedTime;
     });
+
+    this.bus.on('game:restart', () => {
+      this.stageCleared = false;
+      this.elapsedTime = 0;
+      this.shardsCollected = 0;
+    });
   }
 
-  update(dt) {
+  update(dt, input) {
     if (!this.stageCleared) {
       this.elapsedTime += dt;
+    } else {
+      if (input && (input.keys?.['KeyR'] || input.jumpPressed || input.shiftPressed)) {
+        this.bus.emit('game:restart');
+      }
     }
   }
 
@@ -89,7 +99,7 @@ export class HudService {
     ctx.fillRect(18, camera.height - 38, camera.width - 36, 26);
     ctx.fillStyle = '#94a3b8';
     ctx.font = '11px monospace';
-    ctx.fillText('CONTROLS: [A/D or Arrows] Move  |  [W/Space] Jump  |  [SHIFT or J] Shift Dimension', 30, camera.height - 21);
+    ctx.fillText('CONTROLS: [A/D or Arrows] Move  |  [W/Space] Jump  |  [SHIFT] Shift Dimension  |  [M] Music', 30, camera.height - 21);
 
     // 4. Timer (Bottom Right)
     const mins = Math.floor(this.elapsedTime / 60);
@@ -115,6 +125,10 @@ export class HudService {
       ctx.font = '16px monospace';
       ctx.fillText(`Final Time: ${timeFormatted} | All Shards Recovered`, camera.width / 2, camera.height / 2 + 15);
       ctx.fillText('Game Off 2026 Submission Prototype Ready!', camera.width / 2, camera.height / 2 + 45);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 15px monospace';
+      ctx.fillText('Press [R] or [Space] to Play Again', camera.width / 2, camera.height / 2 + 80);
       ctx.textAlign = 'left';
     }
 

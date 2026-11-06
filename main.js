@@ -14,6 +14,7 @@ import collectiblesService from './features/collectibles/service.js';
 import particleService from './features/particle-fx/service.js';
 import audioService from './features/audio-synth/service.js';
 import hudService from './features/hud/service.js';
+import checkpointService from './features/checkpoint/service.js';
 
 async function loadManifest(path) {
   try {
@@ -37,7 +38,8 @@ async function bootstrap() {
     collectiblesManifest,
     particleManifest,
     audioManifest,
-    hudManifest
+    hudManifest,
+    checkpointManifest
   ] = await Promise.all([
     loadManifest('./features/dimension-shift/feature.manifest.json'),
     loadManifest('./features/dimension-alpha/feature.manifest.json'),
@@ -46,7 +48,8 @@ async function bootstrap() {
     loadManifest('./features/collectibles/feature.manifest.json'),
     loadManifest('./features/particle-fx/feature.manifest.json'),
     loadManifest('./features/audio-synth/feature.manifest.json'),
-    loadManifest('./features/hud/feature.manifest.json')
+    loadManifest('./features/hud/feature.manifest.json'),
+    loadManifest('./features/checkpoint/feature.manifest.json')
   ]);
 
   // Register each isolated slice with the Kernel
@@ -58,6 +61,7 @@ async function bootstrap() {
   if (particleManifest) kernel.register(particleManifest, particleService);
   if (audioManifest) kernel.register(audioManifest, audioService);
   if (hudManifest) kernel.register(hudManifest, hudService);
+  if (checkpointManifest) kernel.register(checkpointManifest, checkpointService);
 
   const engine = new GameEngine('game-canvas', kernel);
 

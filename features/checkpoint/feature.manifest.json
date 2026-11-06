@@ -1,0 +1,10 @@
+{
+  "id": "checkpoint",
+  "name": "Holographic Cyber Checkpoint",
+  "description": "Midpoint respawn terminal that activates when reached, saving player progress across perilous gaps",
+  "version": "1.0.0",
+  "enabled": true,
+  "priority": 32,
+  "renderLayer": 38,
+  "service": "./service.js"
+}

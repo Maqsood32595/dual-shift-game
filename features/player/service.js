@@ -49,6 +49,15 @@ export class PlayerService {
       this.bus.emit('audio:play', 'shift');
     });
 
+    this.bus.on('checkpoint:reached', ({ x, y }) => {
+      this.spawnPoint = { x, y };
+    });
+
+    this.bus.on('game:restart', () => {
+      this.spawnPoint = { x: 100, y: 380 };
+      this.respawn('Restarted');
+    });
+
     console.log('[PlayerService] Initialized at spawn', this.spawnPoint);
   }
 
