@@ -6,7 +6,8 @@ export class AudioSynthService {
   constructor() {
     this.ctx = null;
     this.bus = null;
-    this.isMuted = false;
+    this.isMusicMuted = false;
+    this.isSfxMuted = false;
     this.currentRealm = 'ALPHA';
 
     // BGM Sequencer State
@@ -42,11 +43,22 @@ export class AudioSynthService {
     window.addEventListener('keydown', unlockAudio, { once: true });
 
     this.bus.on('audio:play', (soundName) => this.play(soundName));
-    this.bus.on('audio:toggle_mute', () => {
-      this.isMuted = !this.isMuted;
-      if (this.masterGain) {
-        this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.7, this.ctx.currentTime);
-      }
+
+    // Independent toggles
+    this.bus.on('audio:toggle_music', () => {
+      this.isMusicMuted = !this.isMusicMuted;
+      this.bus.emit('audio:state_changed', {
+        musicMuted: this.isMusicMuted,
+        sfxMuted: this.isSfxMuted
+      });
+    });
+
+    this.bus.on('audio:toggle_sfx', () => {
+      this.isSfxMuted = !this.isSfxMuted;
+      this.bus.emit('audio:state_changed', {
+        musicMuted: this.isMusicMuted,
+        sfxMuted: this.isSfxMuted
+      });
     });
 
     this.bus.on('dimension:changed', ({ current }) => {
@@ -55,7 +67,10 @@ export class AudioSynthService {
 
     window.addEventListener('keydown', (e) => {
       if (e.code === 'KeyM') {
-        this.bus.emit('audio:toggle_mute');
+        this.bus.emit('audio:toggle_music');
+      }
+      if (e.code === 'KeyN') {
+        this.bus.emit('audio:toggle_sfx');
       }
     });
   }
@@ -66,7 +81,7 @@ export class AudioSynthService {
 
     // Scheduler tick running at 25ms
     this.bgmTimer = setInterval(() => {
-      if (this.isMuted || !this.ctx) return;
+      if (this.isMusicMuted || !this.ctx) return;
       while (this.nextNoteTime < this.ctx.currentTime + 0.15) {
         this.scheduleBgmStep(this.step, this.nextNoteTime);
         const secondsPer16th = (60 / this.tempo) / 4;
@@ -77,7 +92,7 @@ export class AudioSynthService {
   }
 
   scheduleBgmStep(step, time) {
-    if (!this.ctx || this.isMuted) return;
+    if (!this.ctx || this.isMusicMuted) return;
 
     // Chords and notes: Alpha is Warm Cyber Gold (A, F#m, D, E), Omega is Dark Cyber Void (Dm, Bb, Gm, A)
     const alphaBassNotes = [110, 110, 164.8, 110, 146.8, 146.8, 220, 146.8, 185, 185, 277.2, 185, 164.8, 164.8, 246.9, 164.8];
@@ -127,7 +142,7 @@ export class AudioSynthService {
   }
 
   play(soundName) {
-    if (this.isMuted || !this.ctx) return;
+    if (this.isSfxMuted || !this.ctx) return;
     if (this.ctx.state === 'suspended') {
       this.ctx.resume();
     }

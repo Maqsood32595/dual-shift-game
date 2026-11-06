@@ -11,10 +11,17 @@ export class HudService {
     this.elapsedTime = 0;
     this.stageCleared = false;
     this.clearTime = 0;
+    this.musicMuted = false;
+    this.sfxMuted = false;
   }
 
   init(context) {
     this.bus = context.bus;
+
+    this.bus.on('audio:state_changed', ({ musicMuted, sfxMuted }) => {
+      this.musicMuted = musicMuted;
+      this.sfxMuted = sfxMuted;
+    });
 
     this.bus.on('dimension:changed', ({ current }) => {
       this.currentRealm = current;
@@ -75,6 +82,25 @@ export class HudService {
     ctx.font = '11px sans-serif';
     ctx.fillText('Press [SHIFT] or click to shift', 26, 72);
 
+    // Audio Toggles Pills (Top Left under card)
+    // Music Toggle Pill
+    ctx.fillStyle = this.musicMuted ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)';
+    ctx.strokeStyle = this.musicMuted ? '#ef4444' : '#22c55e';
+    ctx.fillRect(18, 92, 125, 22);
+    ctx.strokeRect(18, 92, 125, 22);
+    ctx.fillStyle = this.musicMuted ? '#f87171' : '#4ade80';
+    ctx.font = 'bold 10px monospace';
+    ctx.fillText(this.musicMuted ? '🎵 BGM [M]: OFF' : '🎵 BGM [M]: ON', 26, 107);
+
+    // SFX Toggle Pill
+    ctx.fillStyle = this.sfxMuted ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)';
+    ctx.strokeStyle = this.sfxMuted ? '#ef4444' : '#22c55e';
+    ctx.fillRect(152, 92, 125, 22);
+    ctx.strokeRect(152, 92, 125, 22);
+    ctx.fillStyle = this.sfxMuted ? '#f87171' : '#4ade80';
+    ctx.font = 'bold 10px monospace';
+    ctx.fillText(this.sfxMuted ? '🔊 SFX [N]: OFF' : '🔊 SFX [N]: ON', 160, 107);
+
     // 2. Shards & Mission Objective (Top-Right)
     ctx.fillStyle = 'rgba(10, 10, 20, 0.85)';
     ctx.strokeStyle = '#a855f7';
@@ -99,7 +125,7 @@ export class HudService {
     ctx.fillRect(18, camera.height - 38, camera.width - 36, 26);
     ctx.fillStyle = '#94a3b8';
     ctx.font = '11px monospace';
-    ctx.fillText('CONTROLS: [A/D or Arrows] Move  |  [W/Space] Jump  |  [SHIFT] Shift Dimension  |  [M] Music', 30, camera.height - 21);
+    ctx.fillText('CONTROLS: [A/D or Arrows] Move  |  [W/Space] Jump  |  [SHIFT] Shift  |  [M] Music  |  [N] SFX', 30, camera.height - 21);
 
     // 4. Timer (Bottom Right)
     const mins = Math.floor(this.elapsedTime / 60);

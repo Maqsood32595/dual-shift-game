@@ -74,6 +74,31 @@
       color: #fbbf24;
       border: 1px solid #f59e0b;
     }
+
+    .btn-audio {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #334155;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-audio:hover {
+      background: #334155;
+      color: #ffffff;
+      border-color: #64748b;
+    }
+
+    .btn-audio.off {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border-color: #ef4444;
+    }
   </style>
 </head>
 <body>
@@ -82,7 +107,8 @@
     <div class="meta-bar">
       <span class="badge github">GitHub Game Off 2026</span>
       <span class="badge theme">Theme: SHIFT</span>
-      <span>Architecture: <strong>Fractal Kernel</strong></span>
+      <button id="btn-toggle-bgm" class="btn-audio">🎵 Music: ON</button>
+      <button id="btn-toggle-sfx" class="btn-audio">🔊 SFX: ON</button>
       <span>Click or press <strong>[SHIFT]</strong> to shift reality</span>
     </div>
   </div>

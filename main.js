@@ -75,6 +75,34 @@ async function bootstrap() {
     engine.camera.shake = Math.max(engine.camera.shake, intensity);
   });
 
+  // UI Audio Toggle Buttons
+  const btnBgm = document.getElementById('btn-toggle-bgm');
+  const btnSfx = document.getElementById('btn-toggle-sfx');
+
+  if (btnBgm) {
+    btnBgm.addEventListener('click', (e) => {
+      e.blur();
+      kernel.bus.emit('audio:toggle_music');
+    });
+  }
+  if (btnSfx) {
+    btnSfx.addEventListener('click', (e) => {
+      e.blur();
+      kernel.bus.emit('audio:toggle_sfx');
+    });
+  }
+
+  kernel.bus.on('audio:state_changed', ({ musicMuted, sfxMuted }) => {
+    if (btnBgm) {
+      btnBgm.textContent = musicMuted ? '🎵 Music: OFF' : '🎵 Music: ON';
+      btnBgm.classList.toggle('off', musicMuted);
+    }
+    if (btnSfx) {
+      btnSfx.textContent = sfxMuted ? '🔊 SFX: OFF' : '🔊 SFX: ON';
+      btnSfx.classList.toggle('off', sfxMuted);
+    }
+  });
+
   await kernel.boot({ engine });
   engine.start();
 
